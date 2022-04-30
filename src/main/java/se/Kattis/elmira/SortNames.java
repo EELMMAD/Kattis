@@ -25,22 +25,6 @@ public class SortNames {
             students.add(4, new Students("Minnie", "Mouse"));
             students.add(5, new Students("Peter", "Gunn"));
         }
-
-
-    /*
-    List<PlayerStats> playerList = new ArrayList<PlayerStats>();
-
-
-public static void sortPlayers(List<PlayerStats> playerList) {
-   Collections.sort(playerList, new Comparator<PlayerStats>() {
-       public int compare(PlayerStats p1, PlayerStats p2) {
-            int res =  p1.getPlayerLastName().compareToIgnoreCase(p2.getPlayerLastName());
-            if (res != 0)
-                return res;
-            return p1.getPlayerFirstName().compareToIgnoreCase(p2.getPlayerFirstName())
-       }
-   });
-}
      */
 
     public static void main(String[] args) {
@@ -73,6 +57,10 @@ public static void sortPlayers(List<PlayerStats> playerList) {
 
 
 class Students {
+
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
 
     String firstName;
     String lastName;
