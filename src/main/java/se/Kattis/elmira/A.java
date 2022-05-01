@@ -3,19 +3,20 @@ package se.Kattis.elmira;
 import java.util.*;
 
 public class A {
+
     public static void main(String[] args) {
-        List<Students> students = new ArrayList<Students>();
+        List<Studentsss> students = new ArrayList<Studentsss>();
 
-        students.add(0, new Students("Will", "Smith"));
-        students.add(1, new Students("Agent", "Smith"));
-        students.add(2, new Students("Peter", "Pan"));
-        students.add(3, new Students("Micky", "Mouse"));
-        students.add(4, new Students("Minnie", "Mouse"));
-        students.add(5, new Students("Peter", "Gunn"));
+        students.add(0, new Studentsss("Will", "Smith"));
+        students.add(1, new Studentsss("Agent", "Smith"));
+        students.add(2, new Studentsss("Peter", "Pan"));
+        students.add(3, new Studentsss("Micky", "Mouse"));
+        students.add(4, new Studentsss("Minnie", "Mouse"));
+        students.add(5, new Studentsss("Peter", "Gunn"));
 
-        Collections.sort(students, new Comparator<Students>() {
+        Collections.sort(students, new Comparator<Studentsss>() {
             @Override
-            public int compare(Students o1, Students o2) {
+            public int compare(Studentsss o1, Studentsss o2) {
                 int res =  o1.getFirstName().compareToIgnoreCase(o2.getLastName());
                 if (res != 0)
                     return res;
@@ -73,5 +74,7 @@ class FirstNameSorter implements Comparator<Studentsss> {
     public int compare(Studentsss o1, Studentsss o2) {
         return o1.getFirstName().compareTo(o2.getFirstName());
     }
+
+
 }
 
