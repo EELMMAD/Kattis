@@ -3,92 +3,88 @@ package se.Kattis.elmira;
 import java.util.*;
 
 public class SortNames {
-
-    /*
-        public static void main(String[] args) {
-            List<Students> students = new ArrayList<Students>();
-
-
-            Collections.sort(students, new Comparator<Students>() {
-                @Override
-                public int compare(Students o1, Students o2) {
-                    int res =  o1.getFirstName().compareToIgnoreCase(o2.getLastName());
-                    if (res != 0)
-                        return res;
-                    return o1.getFirstName().compareToIgnoreCase(o2.getLastName());
-                }
-            });
-            students.add(0, new Students("Will", "Smith"));
-            students.add(1, new Students("Agent", "Smith"));
-            students.add(2, new Students("Peter", "Pan"));
-            students.add(3, new Students("Micky", "Mouse"));
-            students.add(4, new Students("Minnie", "Mouse"));
-            students.add(5, new Students("Peter", "Gunn"));
+    public static void main(String[] args) {
+        List<Student> students = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNextLine()) {
+            // Add each line as a Student to the students list
+            students.add(new Student(scanner.next(), scanner.next()));
+            scanner.nextLine();
         }
-     */
-
-    public static void main(String[] args) {
-        ArrayList<Students> students = new ArrayList<Students>();
-// adding elements to the ArrayList
-        students.add(0, new Students("Will", "Smith"));
-        students.add(1, new Students("Agent", "Smith"));
-        students.add(2, new Students("Peter", "Pan"));
-        students.add(3, new Students("Micky", "Mouse"));
-        students.add(4, new Students("Minnie", "Mouse"));
-        students.add(5, new Students("Peter", "Gunn"));
-
-        System.out.println();
-// printing the unsorted ArrayList
-        System.out.println("Before Sorting: " + students);
-// Sorting ArrayList in ascending Order
-        Collections.sort(students, new Comparator<Students>() {
-            @Override
-            public int compare(Students o1, Students o2) {
-                int res = o1.getFirstName().compareToIgnoreCase(o2.getLastName());
-                if (res != 0)
-                    return res;
-                return o1.getFirstName().compareToIgnoreCase(o2.getLastName());
+        scanner.close();
+        // Sort first by last name and then by first name
+        Collections.sort(students, new Student.StudentSortingComparator());
+        // Check if two or more people have the same last name
+        for (int i = 0; i < students.size() - 1; i++) {
+            if (students.get(i).getLastName().equals(students.get(i + 1).getLastName())) {
+                if (!students.get(i).getFirstName().equals(students.get(i + 1).getFirstName())) {
+                    students.get(i).setSameLastName(true);
+                    students.get(i + 1).setSameLastName(true);
+                }
             }
-        });
-// printing the sorted ArrayList
-        System.out.println("After Sorting: " + students);
+        }
+        for (Student student : students) {
+            if (student.isSameLastName()) {
+                System.out.println(student.getFirstName());
+            } else {
+                System.out.println(student.getFirstName() + " " + student.getLastName());
+            }
+        }
     }
-}
+    static class Student {
+        String firstName;
+        String lastName;
+        boolean sameLastName;
+        boolean sameFirstName;
 
+        public Student(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
 
-class Students {
+        public void setFirstName(String firstName) {
+            this.firstName = firstName;
+        }
 
-    public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+        public String getFirstName() {
+            return firstName;
+        }
 
-    String firstName;
-    String lastName;
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
+        }
 
-    public Students(String firstName, String lastNAme) {
-        this.firstName = firstName;
-        this.lastName = lastNAme;
-    }
+        public String getLastName() {
+            return lastName;
+        }
 
-    public String getFirstName() {
-        return firstName;
-    }
+        public void setSameLastName(boolean sameLastName) {
+            this.sameLastName = sameLastName;
+        }
 
-    public String getLastName() {
-        return lastName;
-    }
+        public boolean isSameLastName() {
+            return sameLastName;
+        }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Students students = (Students) o;
-        return Objects.equals(firstName, students.firstName) && Objects.equals(lastName, students.lastName);
-    }
+        public void setSameFirstName(boolean sameFirstName) {
+            this.sameFirstName = sameFirstName;
+        }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        public boolean isSameFirstName() {
+            return sameFirstName;
+        }
+
+        // Helper class implementing Comparator
+        static class StudentSortingComparator implements Comparator<Student> {
+
+            // Compare Student first by last name then by first name
+            @Override
+            public int compare(Student student1, Student student2) {
+                int lastNameCompare = student1.getLastName().compareTo(student2.getLastName());
+                int firstNameCompare = student1.getFirstName().compareTo(student2.getFirstName());
+                return (lastNameCompare == 0 ? firstNameCompare : lastNameCompare);
+            }
+        }
     }
 }
 
