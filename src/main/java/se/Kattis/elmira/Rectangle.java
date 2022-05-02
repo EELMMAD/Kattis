@@ -1,5 +1,6 @@
 package se.Kattis.elmira;
 public class Rectangle {
+    /*
     public static void main(String[] args) {
 
         Point alicePoint1 = new Point(2, 3);
@@ -104,4 +105,6 @@ class Point {
     public void setY(int y) {
         this.y = y;
     }
+
+     */
 }
